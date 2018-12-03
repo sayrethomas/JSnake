@@ -12,6 +12,8 @@
     //Stuff
     let score;
     let speed = 150;
+    const appleColor = '255,0,0';
+    const snakeColor = '0,255,0';
     function changeDir(key) {
         //UP
         if(key === 38 && snakeDir !== 2){
@@ -36,8 +38,8 @@
             }
         }
     }
-    const activeDot = function(x, y){
-        ctx.fillStyle = 'rgb(0,0,0)';
+    const activeDot = function(x, y, color){
+        ctx.fillStyle = 'rgb('+color+')';
         ctx.fillRect(x * 10, y * 10, 10, 10);
     };
     const checkBlock = function(x, y, X, Y){
@@ -104,7 +106,7 @@
             speed -= 1;
             altScore(score);
             addApple();
-            activeDot(apple.x, apple.y);
+            activeDot(apple.x, apple.y, appleColor);
         }
         //Die
         if(snake[0].x < 0 || snake[0].x === canvas.width/10 || snake[0].y < 0 || snake[0].y === (canvas.height/10)-2){
@@ -124,9 +126,9 @@
         ctx.fillStyle = 'rgb(255, 255, 255)';
         ctx.fillRect(0, 0, canvas.width, canvas.height-20);
         for(let i = 0; i < snake.length; i++) {
-            activeDot(snake[i].x, snake[i].y);
+            activeDot(snake[i].x, snake[i].y, snakeColor);
         }
-        activeDot(apple.x, apple.y);
+        activeDot(apple.x, apple.y, appleColor);
         setTimeout(mainLoop, speed);
     };
     const newGame =function(){
